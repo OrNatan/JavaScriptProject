@@ -8,6 +8,9 @@ const postsRouter = require("./routes/postsRouter.js")
 const commentRouter = require("./routes/commentRouter.js")
 const port = process.env.PORT
 
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended : true}))
 try{
 mongoose.connect(process.env.DB_URI, {useNewUrlParser: true})
 }catch(e){
@@ -21,8 +24,7 @@ db.once("open",()=>{
     console.log("Connected to the DB")
 })
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended : true}))
+
 
 
 app.use("/post", postsRouter)

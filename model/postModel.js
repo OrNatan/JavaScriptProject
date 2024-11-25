@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const { commentSchema } = require("./commentModel");
 const postSchema = new mongoose.Schema({
 
     title: {
@@ -11,32 +11,13 @@ const postSchema = new mongoose.Schema({
         required: true
       },
       comments: [commentSchema],
-      
-      createdAt: {
-        type: Date,
-        default: Date.now
-      },
-      updatedAt: {
-        type: Date,
-        default: Date.now
+      sender: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
       }
     });
 
-const commentSchema = new mongoose.Schema({
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'users',
-      required: true
-    },
-    comment: {
-      type: String,
-      required: true
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now
-    }
-  });
 
 
   const postModel = mongoose.model("posts", postSchema);
